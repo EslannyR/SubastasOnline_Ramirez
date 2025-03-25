@@ -1,0 +1,32 @@
+[
+    {
+        "user_id": 1,
+        "first_name": "Eduardo",
+        "last_name": "Saavedra",
+        "address": "& C:/Users/eslan/AppData/Local/Programs/Python/Python313/python.exe \"c:/Users/eslan/OneDrive/Escritorio/curso Python/TuModeloDeCliente+Ramirez/main.py\"",
+        "email": "eduar@gmail.com",
+        "password": "123456",
+        "role": null,
+        "bids_per_user": []
+    },
+    {
+        "user_id": 2,
+        "first_name": "Eslanny",
+        "last_name": "Ramirez",
+        "address": "Macul 107",
+        "email": "esla@gmail.com",
+        "password": "789456",
+        "role": null,
+        "bids_per_user": []
+    },
+    {
+        "user_id": 3,
+        "first_name": "Pouder",
+        "last_name": "Ramirez",
+        "address": "Sta Ana 5085, Chile",
+        "email": "pouder.ramirez@gmail.com",
+        "password": "242512ek",
+        "role": null,
+        "bids_per_user": []
+    }
+]
