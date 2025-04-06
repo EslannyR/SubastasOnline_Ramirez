@@ -30,7 +30,7 @@ class Users:
 
 # Para cargar los usuarios desde el archivo json
 def load_users():
-    link = 'TuModeloDeCliente+Ramirez/db_data/users.json'
+    link = './db_data/users.json'
     if os.path.exists(link): #esto verifica si el archivo existe
         with open(link, 'r') as file:
             try:
@@ -43,6 +43,6 @@ def load_users():
 
 # Para guardar los usuarios en el archivo json
 def save_users(users_db):
-    link = 'TuModeloDeCliente+Ramirez/db_data/users.json'
+    link = './db_data/users.json'
     with open(link, 'w') as file:
         json.dump([user.__dict__ for user in users_db], file, indent=4) #convierte a diccionario y lo guarda en el json

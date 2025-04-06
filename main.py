@@ -5,7 +5,7 @@ import json
 import os
 
 #Variables globales***
-current_user = {} #este me sirve para guardar el usuerio activo
+current_user = {} #este me sirve para guardar el usuario activo
 #lista de objetos cargados y creados
 users_db = []
 items_db = []
@@ -80,6 +80,27 @@ def main_menu():
             else:
                 print("⚠️ Opción no válida. Intente nuevamente.")
 
+#Validaciones para registro de usuario más eficiente para evitar registros incorrectos.
+import re  # Es un modulo de expresiones relegulares en Python que me sirve para validaciones más potentes y precisas.
+
+def validity_mail(email):
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    if re.fullmatch(regex, email):
+        return True
+    else:
+        return False
+
+def validity_password(password):
+    if len(password) < 8:
+        return False
+    if not re.search(r'[A-Z]', password): # Contiene al menos una letra mayúscula
+        return False
+    if not re.search(r'[a-z]', password): # Contiene al menos una letra minúscula
+        return False
+    if not re.search(r'\d', password): # Contiene al menos un número
+        return False
+    return True
+
 #Funciones de registro de usuarios nuevos
 def register():
     global user_id
@@ -87,8 +108,19 @@ def register():
     first_name = input("Nombre: ")
     last_name = input("Apellido: ")
     address = input("Dirección: ")
-    email = input("Email: ")
-    password = input("Contraseña: ")
+    #validamos email y password correctos
+    while True:
+        email = input("Email: ")
+        if validity_mail(email):
+            break
+        else:
+            print("❌ Email inválido. Intente nuevamente.")
+    while True:
+        password = input("Contraseña: ")
+        if validity_password(password):
+            break
+        else:
+            print("❌ Contraseña inválida. Debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número.")
 
     # toma los datos y los guarda
     user = Users(user_id, first_name, last_name, address, email, password)
