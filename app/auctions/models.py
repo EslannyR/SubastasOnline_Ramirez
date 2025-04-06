@@ -7,8 +7,8 @@ class User(AbstractUser):
         ('buyer', 'Buyer'),
         ('seller', 'Seller'),
     )
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES)
-    bids_per_user = models.PositiveIntegerField(default=0)  # Campo extra opcional
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, null=True, blank=True)
+    bids_per_user = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f"{self.username} ({self.role})"
