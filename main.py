@@ -1,17 +1,22 @@
 #Se importa las clases y funciones necesarias, incluyendo las funciones de carga y guardado de datos
 from packages.users import Users, load_users, save_users
 from packages.items import Items, load_items, save_items
+from packages.bids import Bids, load_bids, save_bids
+from datetime import datetime
 import json
 import os
+import re  # Es un modulo de expresiones relegulares en Python que me sirve para validaciones más potentes y precisas.
 
 #Variables globales***
 current_user = {} #este me sirve para guardar el usuario activo
 #lista de objetos cargados y creados
 users_db = []
 items_db = []
+bids_db = []
 #Para asignar id's unicos
 user_id = 1
 item_id = 1
+bids_db = 1
 
 # Para cargar los usuarios registrados en el json y los convierto en ojbetos USERS
 loaded_users = load_users()
@@ -26,6 +31,13 @@ for data in loaded_items:
     item = Items(data['item_id'], data['title'], data['description'], data['start_price'], data['start_date'], data['end_date'], data['category'], data['seller_id'])
     items_db.append(item)
     item_id = max(item_id, item.item_id + 1)
+
+# Para cargar las ofertas registrados en el json y los convierto en ojbetos BIDS
+loader_bids = load_bids()
+for data in loader_bids:
+    bid = Bids(data['bid_id'], data['user_id'], data['item_id'], data['amount'], data['bid_date'])
+    bids_db.append(bid)
+    bids_db = max(bids_db, bid.bid_id + 1)
 
 #Funcion para el menú principal, importante, aqui se maneja dos tipos de menú, uno para cuando el usuario inicio sesión y otro para cuando no
 def main_menu():
@@ -53,7 +65,7 @@ def main_menu():
             if option == "1":
                 view_items()
             elif option == "2":
-                make_bid() # - para hacer en el futuro -
+                make_bid()
             elif option == "3":
                 view_purchases() # - para hacer en el futuro -
             elif option == "4":
@@ -81,8 +93,6 @@ def main_menu():
                 print("⚠️ Opción no válida. Intente nuevamente.")
 
 #Validaciones para registro de usuario más eficiente para evitar registros incorrectos.
-import re  # Es un modulo de expresiones relegulares en Python que me sirve para validaciones más potentes y precisas.
-
 def validity_mail(email):
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
     if re.fullmatch(regex, email):
@@ -196,4 +206,5 @@ def view_items():
         print(f"Fecha inicio: {item.start_date}")
         print(f"Fecha fin: {item.end_date}\n")
 
+#para hacer una oferta
 main_menu()
