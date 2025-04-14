@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle del producto{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ item.title }}</h2>
+    <p><strong>Descripción:</strong> {{ item.description }}</p>
+    <p><strong>Precio inicial:</strong> ${{ item.start_price }}</p>
+    <p><strong>Fecha de inicio:</strong> {{ item.start_date }}</p>
+    <p><strong>Fecha de cierre:</strong> {{ item.end_date }}</p>
+    <p><strong>Categoría:</strong> {{ item.category }}</p>
+
+    {% if item.image1 %}
+        <img src="{{ item.image1.url }}" class="img-fluid" alt="Imagen 1">
+    {% endif %}
+</div>
+{% endblock %}

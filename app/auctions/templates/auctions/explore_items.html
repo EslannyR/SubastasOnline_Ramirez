@@ -1,39 +1,30 @@
 {% extends 'base.html' %}
-{% block title %}Inicio{% endblock %}
+
+{% block title %}Explorar Productos{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-    {% if user.is_authenticated %}
-        <div class="alert alert-success text-center">
-            ¡Bienvenido {{ user.first_name }}!
-        </div>
-    {% else %}
-        <div class="alert alert-info text-center">
-            Bienvenido a la Plataforma de Subastas Online. Inicia sesión o regístrate para participar.
-        </div>
-    {% endif %}
-
-    <h2 class="text-center mb-4">Subastas Activas</h2>
+    <h2 class="text-center mb-4">Explorar Productos en Subasta</h2>
     {% include "auctions/filters_form.html" %}
     <div class="row">
         {% for item in items %}
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 {% if item.image1 %}
-                <img src="{{ item.image1.url }}" class="card-img-top" alt="{{ item.title }}">
+                <img src="{{ item.image1.url }}" class="card-img-top" alt="Imagen de {{ item.title }}">
                 {% else %}
                 <img src="https://via.placeholder.com/300x200?text=Sin+imagen" class="card-img-top" alt="Sin imagen">
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ item.title }}</h5>
                     <p class="card-text">Precio inicial: ${{ item.start_price }}</p>
-                    <p class="card-text"><small class="text-muted">Finaliza: {{ item.end_date|date:"d M Y H:i" }}</small></p>
+                    <p class="card-text"><small class="text-muted">Finaliza el {{ item.end_date|date:"d M Y H:i" }}</small></p>
                     <a href="{% url 'item_detail' item.id %}" class="btn btn-primary btn-sm">Ver detalle</a>
                 </div>
             </div>
         </div>
         {% empty %}
-        <p class="text-center">No hay subastas activas por el momento.</p>
+        <p class="text-center">No hay productos disponibles por ahora.</p>
         {% endfor %}
     </div>
 </div>
