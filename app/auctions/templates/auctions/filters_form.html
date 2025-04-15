@@ -1,15 +1,32 @@
 <!-- filtros para ex0plorar productor activos para ofertar -->
-<form method="get" class="d-flex flex-wrap gap-2 justify-content-center mb-4">
-    <input type="text" name="search" placeholder="Buscar por título o palabra clave" class="form-control" value="{{ request.GET.search }}">
-    <select name="category" class="form-select">
-        <option value="">Todas las categorías</option>
-        {% for key, label in categories %}
-            <option value="{{ key }}" {% if request.GET.category == key %}selected{% endif %}>
-                {{ label }}
-            </option>
-        {% endfor %}
-    </select>
-    <input type="number" name="min_price" placeholder="Precio mín" class="form-control" value="{{ request.GET.min_price }}">
-    <input type="number" name="max_price" placeholder="Precio máx" class="form-control" value="{{ request.GET.max_price }}">
-    <button type="submit" class="btn btn-primary">Filtrar</button>
+<form method="get" class="row justify-content-center align-items-end gx-2 gy-2 mb-4">
+    <div class="col-md-3">
+        <input type="text" name="search" placeholder="Buscar por título o palabra clave"
+            class="form-control" value="{{ request.GET.search }}">
+    </div>
+
+    <div class="col-md-3">
+        <select name="category" class="form-select">
+            <option value="">Todas las categorías</option>
+            {% for key, label in categories %}
+                <option value="{{ key }}" {% if request.GET.category == key %}selected{% endif %}>
+                    {{ label }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <input type="number" name="min_price" placeholder="Precio mín"
+            class="form-control" value="{{ request.GET.min_price }}">
+    </div>
+
+    <div class="col-md-2">
+        <input type="number" name="max_price" placeholder="Precio máx"
+            class="form-control" value="{{ request.GET.max_price }}">
+    </div>
+
+    <div class="col-md-auto">
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </div>
 </form>

@@ -3,16 +3,24 @@
 {% block title %}Detalle del producto{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2>{{ item.title }}</h2>
-    <p><strong>Descripción:</strong> {{ item.description }}</p>
-    <p><strong>Precio inicial:</strong> ${{ item.start_price }}</p>
-    <p><strong>Fecha de inicio:</strong> {{ item.start_date }}</p>
-    <p><strong>Fecha de cierre:</strong> {{ item.end_date }}</p>
-    <p><strong>Categoría:</strong> {{ item.category }}</p>
-
-    {% if item.image1 %}
-        <img src="{{ item.image1.url }}" class="img-fluid" alt="Imagen 1">
-    {% endif %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card p-4">
+            <h2 class="mb-3 text-center">{{ item.title }}</h2>
+            {% if item.image1 %}
+            <img src="{{ item.image1.url }}" class="img-fluid rounded mb-4" alt="Imagen del producto"> <!-- luego buscar forma de mostrar varias imagenes del producto adjunta por user -->
+            {% endif %}
+            <p><strong>Descripción:</strong> {{ item.description }}</p>
+            <p><strong>Precio inicial:</strong> ${{ item.start_price }}</p>
+            <p><strong>Fecha de inicio:</strong> {{ item.start_date }}</p>
+            <p><strong>Fecha de cierre:</strong> {{ item.end_date }}</p>
+            <p><strong>Categoría:</strong> {{ item.category }}</p>
+            <div class="text-center mt-4">
+                <a href="{% url 'explore_items' %}" class="btn btn-primary">Volver a explorar</a> <!-- Agregar botón adicional para ofertar por el producto -->
+            </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

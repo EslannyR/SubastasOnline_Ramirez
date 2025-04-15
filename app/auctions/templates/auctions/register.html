@@ -1,13 +1,75 @@
 {% extends "base.html" %}
-
-{% block title %}Registrarse{% endblock %}
+{% load static %}
 
 {% block content %}
-<h2>Registro</h2>
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Registrarse</button>
-</form>
-<a href="{% url 'login' %}">¿Ya tienes cuenta? Inicia sesión</a>
+<style>
+  .register-container {
+    background-color: var(--color5);
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .register-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--color3);
+  }
+
+  .register-form label {
+    margin-bottom: 5px;
+    color: var(--color3);
+    font-weight: bold;
+  }
+
+  .register-form input,
+  .register-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+
+  .register-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--color3);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+  }
+
+  .register-form button:hover {
+    background-color: var(--color1);
+  }
+
+  .login-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.95em;
+  }
+</style>
+
+<div class="register-container">
+  <h2>Registro de Usuario</h2>
+  <form method="post" class="register-form">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    {% for field in form %}
+      <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+      {{ field }}
+      {{ field.errors }}
+    {% endfor %}
+
+    <button type="submit">Registrarse</button>
+  </form>
+
+  <a class="login-link" href="{% url 'login' %}">¿Ya tienes cuenta? Inicia sesión</a>
+</div>
 {% endblock %}
