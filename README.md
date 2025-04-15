@@ -1,22 +1,23 @@
-# PlataformaSubastasOnlgine
-
+# 🛍 Plataforma de Subastas Online
 Alumna: Eslanny Ramírez
 
-# 🛍 Plataforma de Subastas Online
-
-Proyecto desarrollado como avance del curso, aplicando el patrón **MVT (Modelo-Vista-Template)** con Django, junto con formularios, búsquedas, herencia de templates y diseño personalizado.
+Este proyecto consiste en el desarrollo de una **plataforma de subastas online** construida con Django, que permitirá a los usuarios publicar productos, explorarlos, y participar en subastas mediante un sistema de ofertas. La aplicación está basada en el patrón **MVT (Modelo - Vista - Template)** y cuenta con una estructura clara, visual atractiva y funcionalidades esenciales bien organizadas.
 
 ---
 
-## ✅ Requisitos del avance
+### 🎯 Objetivos del proyecto
 
-- [x] Proyecto Web Django con patrón MVT
-- [x] Herencia de HTML (`base.html`)
-- [x] Al menos 3 clases en models (`User`, `Item`, `Bid`, `Purchase`)
-- [x] Un formulario de registro (modelo `User`)
-- [x] Un formulario para publicar productos (modelo `Item`)
-- [x] Formulario de búsqueda por palabra clave, categoría y rango de precio
-- [x] Estilo visual unificado con Bootstrap 5 + paleta de colores personalizada
+- Implementar una aplicación web funcional, simple y bien estructurada, usando Django como framework principal.
+- Permitir a los usuarios registrarse, iniciar sesión y gestionar sus productos publicados.
+- Desarrollar un sistema de búsqueda y filtrado eficiente para facilitar la exploración de ítems.
+- Construir una base sólida para, en siguientes etapas, permitir a los usuarios ofertar por productos y cerrar subastas automáticamente.
+- Aplicar conceptos aprendidos en el curso como herencia de templates, formularios, validaciones, diseño responsivo con Bootstrap y persistencia de datos con modelos.
+
+Este avance representa la base de la plataforma, sobre la cual se integrarán nuevas funcionalidades más adelante, siendo la mas importante:
+
+- Ofertar por un producto.
+- Restricción para no ofertar por nuestro propio producto publicado.
+- Cierre y ganador de un producto, generando la venta.
 
 ---
 
@@ -59,7 +60,6 @@ Proyecto desarrollado como avance del curso, aplicando el patrón **MVT (Modelo-
   - Fondo: `#ccdce4`
 - Diseño responsive y limpio (modo claro)
 - Formularios centrados y bien espaciados
-- Footer fijo al final de página
 
 ---
 
