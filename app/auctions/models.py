@@ -1,18 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-from django.conf import settings
-
-# Extendemos el modelo de usuario si necesitas roles personalizados
-class User(AbstractUser):
-    address = models.TextField(blank=True, null=True)
-    role = models.CharField(max_length=10, choices=[('buyer', 'Buyer'), ('seller', 'Seller')], null=True, blank=True)
-    bids_per_user = models.PositiveIntegerField(default=0)
-
-    def __str__(self):
-        return f"{self.username} ({self.role})"
-
+from django.contrib.auth import get_user_model
+User = get_user_model()
+import uuid
 
 class Item(models.Model):
+    code =models.CharField(max_length=10, unique=True, editable=False, default=uuid.uuid4().hex[:10].upper())
     title = models.CharField(max_length=100)
     description = models.TextField()
     start_price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -47,7 +39,7 @@ class Item(models.Model):
 
 class Bid(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='bids')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bids')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bids_made')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     bid_date = models.DateTimeField(auto_now_add=True)
 

@@ -28,7 +28,7 @@
                     <h5 class="card-title">{{ item.title }}</h5>
                     <p class="card-text">Precio inicial: ${{ item.start_price }}</p>
                     <p class="card-text"><small class="text-muted">Finaliza: {{ item.end_date|date:"d M Y H:i" }}</small></p>
-                    <a href="{% url 'item_detail' item.id %}" class="btn btn-primary btn-sm">Ver detalle</a>
+                    <a href="{% url 'item_detail' item.code %}" class="btn btn-primary btn-sm">Ver detalle</a>
                 </div>
             </div>
         </div>
