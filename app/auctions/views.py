@@ -51,11 +51,11 @@ def publish_item(request):
 
 @login_required
 def my_items(request):
-    items = Item.objects.filter(seller=request.user)
+    items = Item.objects.filter(seller=request.user).order_by('-start_date')
     now = timezone.now()
     for item in items:
         item.status = "Activo" if item.end_date > now else "Cerrado"
-    return render(request, 'auctions/my_items.html', {'items': items})
+    return render(request, 'auctions/my_items.html', {'items': items, 'now': now})
 
 def item_detail(request, code):
     item = get_object_or_404(Item, code=code)
@@ -83,3 +83,46 @@ def explore_items(request):
         "categories": Item.CATEGORY_CHOICES
     })
 
+#Editor de productos cuando este no tiene ofertas
+@login_required
+def edit_item(request, code):
+    item = get_object_or_404(Item, code=code, seller=request.user)
+
+    # Verificar si el producto ya tiene ofertaas
+    if item.bids.exists():
+        messages.error(request, "No puedes editar este producto porque ya tiene ofertas.")
+        return redirect('my_items')
+
+    if request.method == 'POST':
+        form = ItemForm(request.POST, request.FILES, instance=item)
+
+        if form.is_valid():
+            # No permitir cambiarr el título, categoría ni fecha de inicio
+            form.instance.title = item.title
+            form.instance.category = item.category
+            form.instance.start_date = item.start_date
+
+            form.save()
+            messages.success(request, "Producto editado exitosamente.")
+            return redirect('my_items')
+    else:
+        form = ItemForm(instance=item)
+
+    return render(request, 'auctions/edit_item.html', {'form': form})
+
+#Eliminar mi producto sin ofertas
+@login_required
+def confirm_delete_item(request, code):
+    item = get_object_or_404(Item, code=code, seller=request.user)
+
+    # Verificar si tiene ofertas
+    if item.bids.exists():
+        messages.error(request, "No puedes eliminar este producto porque ya tiene ofertas.")
+        return redirect('my_items')
+
+    if request.method == 'POST':
+        item.delete()
+        messages.success(request, "Producto eliminado exitosamente.")
+        return redirect('my_items')
+
+    return render(request, 'auctions/confirm_delete_item.html', {'item': item})

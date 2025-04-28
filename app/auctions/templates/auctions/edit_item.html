@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .publicar-container {
+        background-color: var(--color5);
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .publicar-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: var(--color3);
+    }
+
+    .publicar-form label {
+        margin-bottom: 5px;
+        color: var(--color3);
+        font-weight: bold;
+    }
+
+    .publicar-form input,
+    .publicar-form select,
+    .publicar-form textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
+
+    .publicar-form button {
+        width: 100%;
+        padding: 10px;
+        background-color: var(--color3);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+    }
+
+    .publicar-form button:hover {
+        background-color: var(--color1);
+    }
+</style>
+
+<div class="publicar-container">
+    <h2 class="text-center mb-4">Editar Producto</h2>
+
+    <form method="POST" enctype="multipart/form-data" class="publicar-form">
+        {% csrf_token %}
+
+        <!-- Título (solo lectura) -->
+        <label for="id_title">Título:</label>
+        <input type="text" id="id_title" name="title" value="{{ form.initial.title }}" class="form-control" readonly>
+
+        <!-- Descripción -->
+        <label for="id_description">Descripción:</label>
+        {{ form.description }}
+
+        <!-- Precio inicial -->
+        <label for="id_start_price">Precio inicial:</label>
+        {{ form.start_price }}
+
+        <!-- Fecha de cierre -->
+        <label for="id_end_date">Fecha de cierre:</label>
+        <input type="datetime-local" id="id_end_date" name="end_date" class="form-control" value="{{ form.initial.end_date|date:'Y-m-d\\TH:i' }}">
+
+        <!-- Categoría (solo lectura) -->
+        <label for="id_category">Categoría:</label>
+        <input type="text" id="id_category" name="category" value="{{ form.initial.category }}" class="form-control" readonly>
+
+        <!-- Imágenes -->
+        <div class="mb-3">
+            <label class="form-label">Imagen 1:</label>
+            {% if form.initial.image1 %}
+                <div class="mb-2">
+                    Actualmente:
+                    <a href="{{ form.initial.image1.url }}" target="_blank" style="color: var(--color3);">
+                        {{ form.initial.image1.name }}
+                    </a>
+                </div>
+            {% endif %}
+            {{ form.image1 }}
+            <div class="form-check mt-2">
+                {{ form.clear_image1 }} <label class="form-check-label" for="{{ form.clear_image1.id_for_label }}"> Limpiar imagen</label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Imagen 2:</label>
+            {% if form.initial.image2 %}
+                <div class="mb-2">
+                    Actualmente:
+                    <a href="{{ form.initial.image2.url }}" target="_blank" style="color: var(--color3);">
+                        {{ form.initial.image2.name }}
+                    </a>
+                </div>
+            {% endif %}
+            {{ form.image2 }}
+            <div class="form-check mt-2">
+                {{ form.clear_image2 }} <label class="form-check-label" for="{{ form.clear_image2.id_for_label }}"> Limpiar imagen</label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Imagen 3:</label>
+            {% if form.initial.image3 %}
+                <div class="mb-2">
+                    Actualmente:
+                    <a href="{{ form.initial.image3.url }}" target="_blank" style="color: var(--color3);">
+                        {{ form.initial.image3.name }}
+                    </a>
+                </div>
+            {% endif %}
+            {{ form.image3 }}
+            <div class="form-check mt-2">
+                {{ form.clear_image3 }} <label class="form-check-label" for="{{ form.clear_image3.id_for_label }}"> Limpiar imagen</label>
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="d-flex justify-content-center gap-2 mt-4">
+            <button type="submit" class="btn btn-primary">
+                Guardar Cambios
+            </button>
+            <a href="{% url 'my_items' %}" class="btn btn-primary">
+                Cancelar
+            </a>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}
+

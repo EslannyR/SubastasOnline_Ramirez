@@ -15,9 +15,20 @@
             <p><strong>Precio inicial:</strong> ${{ item.start_price }}</p>
             <p><strong>Fecha de inicio:</strong> {{ item.start_date }}</p>
             <p><strong>Fecha de cierre:</strong> {{ item.end_date }}</p>
-            <p><strong>Categoría:</strong> {{ item.category }}</p>
-            <div class="text-center mt-4">
-                <a href="{% url 'explore_items' %}" class="btn btn-primary">Volver a explorar</a> <!-- Agregar botón adicional para ofertar por el producto -->
+            <p><strong>Categoría:</strong> {{ item.get_category_display }}</p>
+            <div class="d-flex justify-content-center mt-4 gap-3">
+                <a href="{% url 'explore_items' %}" class="btn" style="background-color: var(--color2); color: white;">
+                    Volver a explorar
+                </a>
+                {% if user.is_authenticated %}
+                    <a href="#" class="btn" style="background-color: var(--color1); color: white;">
+                        Ofertar por este producto
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn" style="background-color: var(--color1); color: white;">
+                        Inicia sesión para ofertar
+                    </a>
+                {% endif %}
             </div>
             </div>
         </div>

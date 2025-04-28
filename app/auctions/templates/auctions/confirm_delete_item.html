@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm p-4" style="background-color: var(--color5); max-width: 500px; margin: auto;">
+        <h2 class="text-center mb-4" style="color: var(--color1);">Eliminar Producto</h2>
+
+        <p class="text-center mb-4" style="font-size: 18px;">
+            ¿Estás seguro que deseas eliminar el producto <strong>{{ item.title }}</strong>?
+        </p>
+
+        <form method="post" class="text-center">
+            {% csrf_token %}
+            <button type="submit" class="btn" style="background-color: var(--color2); color: black; margin-right: 10px;">
+                Sí, eliminar
+            </button>
+            <a href="{% url 'my_items' %}" class="btn" style="background-color: var(--color4); color: white;">
+                Cancelar
+            </a>
+        </form>
+    </div>
+</div>
+{% endblock %}

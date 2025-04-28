@@ -11,6 +11,8 @@ urlpatterns = [
     path('mis-productos/', views.my_items, name='my_items'),
     path('producto/<str:code>/', views.item_detail, name='item_detail'),
     path('explorar/', views.explore_items, name='explore_items'),
+    path('editar/<str:code>/', views.edit_item, name='edit_item'),
+    path('eliminar/<str:code>/', views.confirm_delete_item, name='confirm_delete_item'),
 ]
 
 if settings.DEBUG:
