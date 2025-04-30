@@ -21,7 +21,7 @@
                     Volver a explorar
                 </a>
                 {% if user.is_authenticated %}
-                    <a href="#" class="btn" style="background-color: var(--color1); color: white;">
+                    <a href="{% url 'offer_item' item.code %}" class="btn" style="background-color: var(--color1); color: white;">
                         Ofertar por este producto
                     </a>
                 {% else %}

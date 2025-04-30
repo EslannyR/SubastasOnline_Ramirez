@@ -3,6 +3,7 @@ from django import forms
 from auctions.models import Item
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
+from .models import Bid
 
 # Obtener el modelo de usuario
 User = get_user_model()
@@ -26,4 +27,12 @@ class ItemForm(forms.ModelForm):
         }
         widgets = {
             'end_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
+
+class BidForm(forms.ModelForm):
+    class Meta:
+        model = Bid
+        fields = ['amount']
+        widgets = {
+            'amount': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Monto de tu oferta'}),
         }

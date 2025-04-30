@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import ItemForm
+from .forms import BidForm
 from django.utils import timezone
-from .models import Item
+from .models import Item, Bid
 from django.utils.timezone import now
 import uuid
 
@@ -126,3 +127,44 @@ def confirm_delete_item(request, code):
         return redirect('my_items')
 
     return render(request, 'auctions/confirm_delete_item.html', {'item': item})
+
+# Ofertar un producto activo
+@login_required
+def offer_item(request, code):
+    item = get_object_or_404(Item, code=code)
+
+    # No permitir ofertar si el user es el dueño
+    if request.user == item.seller:
+        messages.warning(request, "No puedes ofertar en tu propio producto.")
+        return redirect('item_detail', code=code)
+
+    # Obtener la oferta más alta existente (si hay)
+    highest_bid = item.bids.order_by('-amount').first()
+
+    # Procesar formulario
+    if request.method == 'POST':
+        form = BidForm(request.POST)
+        if form.is_valid():
+            amount = form.cleaned_data['amount']
+
+            # Validar que la oferta sea mayor que la oferta más alta o precio inicial
+            min_required = highest_bid.amount if highest_bid else item.start_price
+            if amount <= min_required:
+                messages.error(request, f"Tu oferta debe ser mayor que ${min_required}")
+            else:
+                Bid.objects.create(
+                    item=item,
+                    bidder=request.user,
+                    amount=amount
+                )
+                messages.success(request, "Tu oferta fue enviada exitosamente.")
+                return redirect('item_detail', code=code)
+    else:
+        form = BidForm()
+
+    context = {
+        'item': item,
+        'form': form,
+        'highest_bid': highest_bid,
+    }
+    return render(request, 'auctions/offer_item.html', context)
