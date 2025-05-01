@@ -15,7 +15,6 @@ urlpatterns = [
     path('eliminar/<str:code>/', views.confirm_delete_item, name='confirm_delete_item'),
     path('ofertar/<str:code>/', views.offer_item, name='offer_item'),
     path('mis-ofertas/', views.my_bids, name='my_bids'),
-    path('perfil/', views.profile_view, name='profile_view'),
 ]
 
 if settings.DEBUG:

@@ -192,7 +192,3 @@ def my_bids(request):
     }
     return render(request, 'auctions/my_bids.html', context)
 
-# Ver perfil de usuario
-@login_required
-def profile_view(request):
-    return render(request, 'users/profile.html', {'user': request.user})

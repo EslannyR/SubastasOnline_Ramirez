@@ -11,7 +11,7 @@ User = get_user_model()
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ['title', 'description', 'start_price', 'end_date', 'category', 'image1', 'image2', 'image3']
+        fields = ['title', 'description', 'start_price', 'end_date', 'category', 'image1']
         labels = {
             'title': 'Título',
             'description': 'Descripción',
