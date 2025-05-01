@@ -16,6 +16,12 @@
             <p><strong>Fecha de inicio:</strong> {{ item.start_date }}</p>
             <p><strong>Fecha de cierre:</strong> {{ item.end_date }}</p>
             <p><strong>Categoría:</strong> {{ item.get_category_display }}</p>
+            {% if item.bids.count %}
+                <p class="small text-muted"><strong>Ofertas registradas:</strong> {{ item.bids.count }}</p>
+            {% else %}
+                <p class="small text-muted"><strong>Este producto aún no tiene ofertas.</strong></p>
+            {% endif %}
+
             <div class="d-flex justify-content-center mt-4 gap-3">
                 <a href="{% url 'explore_items' %}" class="btn" style="background-color: var(--color2); color: white;">
                     Volver a explorar

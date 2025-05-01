@@ -168,3 +168,31 @@ def offer_item(request, code):
         'highest_bid': highest_bid,
     }
     return render(request, 'auctions/offer_item.html', context)
+
+# Para ver mis ofertas
+@login_required
+def my_bids(request):
+    bids = Bid.objects.filter(bidder=request.user).select_related('item')
+
+    active_bids = []
+    closed_bids = []
+
+    for bid in bids:
+        if bid.item.end_date > now():
+            active_bids.append(bid)
+        else:
+            # Saber si fue la oferta más alta
+            highest = bid.item.bid_set.order_by('-amount').first()
+            bid.was_winner = (bid == highest)
+            closed_bids.append(bid)
+
+    context = {
+        'active_bids': active_bids,
+        'closed_bids': closed_bids
+    }
+    return render(request, 'auctions/my_bids.html', context)
+
+# Ver perfil de usuario
+@login_required
+def profile_view(request):
+    return render(request, 'users/profile.html', {'user': request.user})

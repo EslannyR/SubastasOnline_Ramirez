@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Mis Ofertas Realizadas</h2>
+
+    <!-- Ofertas activass -->
+    <h4 class="list-group mb-4">🟢 Ofertas en Subastas Activas</h4>
+    {% if active_bids %}
+        <ul class="list-group mb-4">
+        {% for bid in active_bids %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>
+                <strong>{{ bid.item.title }}</strong><br>
+                Monto ofertado: ${{ bid.amount }}<br>
+                Finaliza: {{ bid.item.end_date|date:"d M Y H:i" }}
+            </span>
+            <a href="{% url 'item_detail' bid.item.code %}" class="btn btn-sm btn-outline-info">Ver producto</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-muted">No tienes ofertas activas actualmente.</p>
+    {% endif %}
+
+    <!-- Ofertas cerradas -->
+    <h4 class="text-secondary mt-5 mb-3">🕔 Ofertas en Subastas Finalizadas</h4>
+    {% if closed_bids %}
+        <ul class="list-group">
+        {% for bid in closed_bids %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>
+                <strong>{{ bid.item.title }}</strong><br>
+                Monto ofertado: ${{ bid.amount }}<br>
+                Finalizó: {{ bid.item.end_date|date:"d M Y H:i" }}
+            </span>
+            <span class="badge {% if bid.was_winner %}bg-success{% else %}bg-danger{% endif %}">
+                {% if bid.was_winner %}Ganaste ✅{% else %}Perdiste ❌{% endif %}
+            </span>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-muted">No tienes ofertas realizadas en subastas finalizadas.</p>
+    {% endif %}
+</div>
+{% endblock %}
