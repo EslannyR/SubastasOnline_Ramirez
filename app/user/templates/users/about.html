@@ -1,17 +1,28 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 <div class="container mt-5">
-    <div class="card p-4" style="background-color: #fff;">
+    <div class="card p-4 shadow" style="background-color: var(--color5);">
         <h2 class="text-center mb-4" style="color: var(--color1);">Acerca de Mí</h2>
+        <div class="text-center mb-4">
+            <img src="{% static 'img/perfil_autor.jpg' %}" alt="Mi Foto" class="rounded-circle shadow" style="width: 150px; height: 150px; object-fit: cover;">
+        </div>
+
         <p><strong>Nombre:</strong> Eslanny Karin Ramírez Sandoval</p>
         <p><strong>Edad:</strong> 29 años</p>
         <p><strong>Profesión:</strong> Analista de datos</p>
+
         <p><strong>Reflexión del proyecto:</strong></p>
         <p>
-            Aprendí muchísimo, especialmente sobre la estructura y la lógica detrás de los modelos, vistas y templates en Django. Quizás me propuse una meta ambiciosa con este proyecto, pero gracias a eso pude practicar más, investigar por mi cuenta y aprender incluso cosas que no vimos en clases.
+            Esta plataforma representa un hito importante en mi proceso de aprendizaje. A lo largo del proyecto, profundicé mis conocimientos en Django y python, y logré estructurar una aplicación completa aplicando el patrón MVT, formularios, modelos relacionales y una lógica clara de negocio.
         </p>
         <p>
-            Lo que más disfruté fue ese proceso de descubrir y adaptar soluciones, y ver cómo, paso a paso, fui construyendo funcionalidades cada vez más complejas. Aunque no alcancé a completar todo lo que imaginé, siento que logré desarrollar una base sólida y significativa para lo que será un gran proyecto.
+            Más allá de los contenidos del curso, me enfrenté a desafíos reales como la validación de formularios, subida de imágenes, cierre automático de procesos y personalización de vistas. Disfruté especialmente poder ver cómo, paso a paso, mi idea inicial se convirtió en un sistema funcional.
+        </p>
+
+        <p><strong>Proyección del proyecto:</strong></p>
+        <p>
+            Actualmente esta plataforma se encuentra en una etapa inicial, pero su diseño contempla una evolución futura que incluya notificaciones automáticas y un sistema de reputación para compradores y vendedores. Es un punto de partida sólido para continuar desarrollando soluciones útiles con enfoque real.
         </p>
     </div>
 </div>

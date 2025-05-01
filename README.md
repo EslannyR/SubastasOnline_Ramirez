@@ -71,7 +71,12 @@ Este avance representa una **versión sólida y funcional de la plataforma**, de
   - Cambiar tu contraseña desde una vista personalizada
   - No puedes eliminar tu cuenta si tienes productos u ofertas activas
 
-### 8. Página “Acerca de mí”
+### 8. Módulo de Cierre y Compra
+- Cierre automático de subasta al alcanzar la fecha de cierre.
+- En "Mis Productos", se puede ver a quién se vendió el producto.
+- En "Mis Ofertas", si el usuario ganó, se le muestra el contacto del vendedor.
+
+### 9. Página “Acerca de mí”
 - Vista estática con tu presentación personal y reflexión del proyecto
 
 ---
@@ -97,6 +102,36 @@ Este avance representa una **versión sólida y funcional de la plataforma**, de
 - Vista de cambio de contraseña con diseño propio
 - Validación personalizada para campos únicos como email
 - Eliminación condicional de ítems (no se puede eliminar si hay ofertas)
+
+---
+## ⚙️ Instalación y configuración
+
+1. Clona el repositorio:
+
+```bash
+git clone https://github.com/tuusuario/plataforma_subastas.git
+cd plataforma_subastas
+```
+
+2. Crea un entorno virtual:
+
+```bash
+python -m venv venv
+source venv/bin/activate  # o venv\Scripts\activate en Windows
+```
+
+3. Instala los requerimientos:
+
+```bash
+pip install -r requirements.txt
+```
+
+4. Ejecuta las migraciones y levanta el servidor:
+
+```bash
+python manage.py migrate
+python manage.py runserver
+```
 
 ---
 
@@ -131,3 +166,13 @@ Este avance representa una **versión sólida y funcional de la plataforma**, de
 │           ├── profile.html
 │           ├── change_password.html
 │           └── about.html
+
+---
+
+## 🎥 Video de demostración
+
+🔗 [Enlace al video de presentación](https://drive.google.com/file/d/1ZzLaltu0iw_64yCOoalD5TTKHdZAu42r/view?usp=sharing)
+
+---
+
+¡Gracias por revisar mi proyecto! 😊

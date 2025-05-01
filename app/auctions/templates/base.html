@@ -117,9 +117,6 @@
                             <a class="nav-link" href="{% url 'my_items' %}">Mis Productos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'explore_items' %}">Explorar</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'my_bids' %}">Mis Ofertas</a>
                         </li>
                         <li class="nav-item">
@@ -133,7 +130,7 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'explore_items' %}">Explorar</a>
+                            <a class="nav-link" href="{% url 'explore_items' %}">Inicio</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>

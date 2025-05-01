@@ -81,7 +81,8 @@ def item_detail(request, code):
 
     return render(request, 'auctions/item_detail.html', {
         'item': item,
-        'highest_bid': highest_bid
+        'highest_bid': highest_bid,
+        'now': timezone.now()
     })
 
 def explore_items(request):
