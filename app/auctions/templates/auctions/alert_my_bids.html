@@ -1,0 +1,11 @@
+{% if bid.item.status == 'Cerrado' %}
+    <span class="badge {% if bid.was_winner %}bg-success{% else %}bg-danger{% endif %}">
+        {% if bid.was_winner %}
+        Ganaste ✅
+        {% else %}
+        Perdiste ❌
+        {% endif %}
+    </span>
+    {% else %}
+    <span class="badge bg-secondary">Activa</span>
+{% endif %}

@@ -1,0 +1,11 @@
+{% if item.status == 'Cerrado' %}
+    {% with top_bid=item.bids.order_by('-amount').first %}
+        {% if top_bid %}
+        <span class="badge bg-success">Vendido a {{ top_bid.bidder.username }}</span>
+        {% else %}
+        <span class="badge bg-warning">Sin ofertas</span>
+        {% endif %}
+    {% endwith %}
+    {% else %}
+    <span class="badge bg-secondary">Activo</span>
+{% endif %}

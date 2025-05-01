@@ -21,15 +21,37 @@
             {% else %}
                 <p class="small text-muted"><strong>Este producto aún no tiene ofertas.</strong></p>
             {% endif %}
+            <!-- si el item esta cerrado, mostrar mensaje de que esta cerrado y quien fue el ganador -->
+            {% if item.status == "Cerrado" %}
+                <div class="alert alert-warning mt-3">
+                    <strong>Esta subasta ha finalizado.</strong><br>
+                    {% if highest_bid %}
+                        {% if user == highest_bid.bidder %}
+                            Felicidades {{ user.first_name }}, ganaste la subasta. Puedes contactar al vendedor: <strong>{{ item.seller.email }}</strong>
+                        {% elif user == item.seller %}
+                            Tu producto fue vendido a <strong>{{ highest_bid.bidder.username }}</strong>. Contáctalo al correo: <strong>{{ highest_bid.bidder.email }}</strong>
+                        {% else %}
+                            Esta subasta fue ganada por otro usuario.
+                        {% endif %}
+                    {% else %}
+                        No se recibieron ofertas en esta subasta.
+                    {% endif %}
+                </div>
+            {% endif %}
 
             <div class="d-flex justify-content-center mt-4 gap-3">
                 <a href="{% url 'explore_items' %}" class="btn" style="background-color: var(--color2); color: white;">
                     Volver a explorar
                 </a>
                 {% if user.is_authenticated %}
-                    <a href="{% url 'offer_item' item.code %}" class="btn" style="background-color: var(--color1); color: white;">
-                        Ofertar por este producto
-                    </a>
+                {% if item.end_date > now %}
+                    <!-- Subasta activa: mostrar botón para ofertar -->
+                    <a href="{% url 'offer_item' item.code %}" class="btn btn-primary">Ofertar por este producto</a>
+                {% else %}
+                    <!-- Subasta cerrada: mostrar botón de retorno -->
+                    <a href="{% url 'home' %}" class="btn btn-secondary">Volver al inicio</a>
+                {% endif %}
+
                 {% else %}
                     <a href="{% url 'login' %}" class="btn" style="background-color: var(--color1); color: white;">
                         Inicia sesión para ofertar

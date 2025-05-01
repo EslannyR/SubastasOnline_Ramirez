@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load custom_tags %}
 
 {% block content %}
 <div class="container mt-4">
@@ -22,17 +23,23 @@
                 </a>
 
                 <!-- Estado de publicación -->
-                {% if item.end_date and item.end_date > now %}
+                {% if item.status == 'Cerrado' %}
+                    {% if item.bids.exists %}
+                        <span class="badge bg-secondary me-2">Cerrado</span>
+                        <a href="{% url 'item_detail' item.code %}" class="btn btn-sm btn-outline-dark ms-2">
+                            🏆
+                        </a>
+                    {% else %}
+                        <span class="badge bg-secondary me-2">Sin ofertas</span>
+                        <span class="badge bg-secondary">Cerrado</span>
+                    {% endif %}
+                {% else %}
+                    {% if item.bids.exists %}
+                        <span class="badge bg-success me-2">Con ofertas</span>
+                    {% else %}
+                        <span class="badge bg-secondary me-2">Sin ofertas</span>
+                    {% endif %}
                     <span class="badge bg-success">Activo</span>
-                {% else %}
-                    <span class="badge bg-secondary">Cerrado</span>
-                {% endif %}
-
-                <!-- Estado de ofertas -->
-                {% if item.bids.exists %}
-                    <span class="badge bg-info text-dark ms-2">Con ofertas</span>
-                {% else %}
-                    <span class="badge bg-success ms-2">Sin ofertas</span>
                 {% endif %}
             </div>
         </div>

@@ -52,15 +52,37 @@ def publish_item(request):
 
 @login_required
 def my_items(request):
-    items = Item.objects.filter(seller=request.user).order_by('-start_date')
     now = timezone.now()
+    items = Item.objects.filter(seller=request.user).prefetch_related('bids')
+
+    # Crear un diccionario para mapear cada item con su top_bid (si corresponde)
+    top_bidders = {}
     for item in items:
-        item.status = "Activo" if item.end_date > now else "Cerrado"
-    return render(request, 'auctions/my_items.html', {'items': items, 'now': now})
+        if item.status == 'cerrado' and item.bids.exists():
+            top_bidders[item.code] = item.bids.order_by('-amount').first().bidder.username
+
+    context = {
+        'items': items,
+        'now': now,
+        'top_bidders': top_bidders
+    }
+    return render(request, 'auctions/my_items.html', context)
 
 def item_detail(request, code):
     item = get_object_or_404(Item, code=code)
-    return render(request, 'auctions/item_detail.html', {'item': item})
+
+    # Verificar si debe cerrarse automáticamente
+    if item.end_date < timezone.now() and item.status == 'Activo':
+        item.status = 'Cerrado'
+        item.save()
+
+    # Obtener la oferta más alta si está cerrado
+    highest_bid = item.bids.order_by('-amount').first() if item.status == 'Cerrado' else None
+
+    return render(request, 'auctions/item_detail.html', {
+        'item': item,
+        'highest_bid': highest_bid
+    })
 
 def explore_items(request):
     items = Item.objects.filter(end_date__gt=timezone.now())
@@ -184,7 +206,7 @@ def my_bids(request):
             active_bids.append(bid)
         else:
             # Saber si fue la oferta más alta
-            highest = bid.item.bid_set.order_by('-amount').first()
+            highest = bid.item.bids.order_by('-amount').first()
             bid.was_winner = (bid == highest)
             closed_bids.append(bid)
 

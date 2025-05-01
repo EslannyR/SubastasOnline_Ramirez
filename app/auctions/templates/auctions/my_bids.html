@@ -33,9 +33,12 @@
                 Monto ofertado: ${{ bid.amount }}<br>
                 Finalizó: {{ bid.item.end_date|date:"d M Y H:i" }}
             </span>
-            <span class="badge {% if bid.was_winner %}bg-success{% else %}bg-danger{% endif %}">
-                {% if bid.was_winner %}Ganaste ✅{% else %}Perdiste ❌{% endif %}
-            </span>
+            <div class="d-flex flex-column align-items-end">
+                <span class="badge {% if bid.was_winner %}bg-success{% else %}bg-danger{% endif %} mb-2">
+                    {% if bid.was_winner %}Ganaste ✅{% else %}Perdiste ❌{% endif %}
+                </span>
+                <a href="{% url 'item_detail' bid.item.code %}" class="btn btn-sm btn-outline-info">Ver producto</a>
+            </div>
             </li>
         {% endfor %}
         </ul>
