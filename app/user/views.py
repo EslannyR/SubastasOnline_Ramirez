@@ -56,3 +56,6 @@ class CustomPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
     template_name = 'users/change_password.html'
     success_url = reverse_lazy('profile_view')
     success_message = 'Tu contraseña se cambió correctamente.'
+
+def about_view(request):
+    return render(request, 'users/about.html')
