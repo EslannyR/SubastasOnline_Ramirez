@@ -78,51 +78,16 @@
 
         <!-- Imágenes -->
         <div class="mb-3">
-            <label class="form-label">Imagen 1:</label>
+            <label for="id_image1" class="form-label">Imagen:</label>
             {% if form.initial.image1 %}
                 <div class="mb-2">
-                    Actualmente:
-                    <a href="{{ form.initial.image1.url }}" target="_blank" style="color: var(--color3);">
-                        {{ form.initial.image1.name }}
+                    <a href="{{ form.initial.image1.url }}" target="_blank">
+                        {{ form.initial.image1.name|cut:"items/" }}
                     </a>
                 </div>
             {% endif %}
-            {{ form.image1 }}
-            <div class="form-check mt-2">
-                {{ form.clear_image1 }} <label class="form-check-label" for="{{ form.clear_image1.id_for_label }}"> Limpiar imagen</label>
-            </div>
-        </div>
 
-        <div class="mb-3">
-            <label class="form-label">Imagen 2:</label>
-            {% if form.initial.image2 %}
-                <div class="mb-2">
-                    Actualmente:
-                    <a href="{{ form.initial.image2.url }}" target="_blank" style="color: var(--color3);">
-                        {{ form.initial.image2.name }}
-                    </a>
-                </div>
-            {% endif %}
-            {{ form.image2 }}
-            <div class="form-check mt-2">
-                {{ form.clear_image2 }} <label class="form-check-label" for="{{ form.clear_image2.id_for_label }}"> Limpiar imagen</label>
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Imagen 3:</label>
-            {% if form.initial.image3 %}
-                <div class="mb-2">
-                    Actualmente:
-                    <a href="{{ form.initial.image3.url }}" target="_blank" style="color: var(--color3);">
-                        {{ form.initial.image3.name }}
-                    </a>
-                </div>
-            {% endif %}
-            {{ form.image3 }}
-            <div class="form-check mt-2">
-                {{ form.clear_image3 }} <label class="form-check-label" for="{{ form.clear_image3.id_for_label }}"> Limpiar imagen</label>
-            </div>
+            <input type="file" name="image1" id="id_image1" class="form-control">
         </div>
 
         <!-- Botones -->

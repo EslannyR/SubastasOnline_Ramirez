@@ -96,6 +96,7 @@ def edit_item(request, code):
 
     if request.method == 'POST':
         form = ItemForm(request.POST, request.FILES, instance=item)
+        form.fields.pop("clear_image1", None)
 
         if form.is_valid():
             # No permitir cambiarr el título, categoría ni fecha de inicio
@@ -108,6 +109,7 @@ def edit_item(request, code):
             return redirect('my_items')
     else:
         form = ItemForm(instance=item)
+        form.fields.pop("clear_image1", None)
 
     return render(request, 'auctions/edit_item.html', {'form': form})
 
@@ -191,4 +193,3 @@ def my_bids(request):
         'closed_bids': closed_bids
     }
     return render(request, 'auctions/my_bids.html', context)
-
